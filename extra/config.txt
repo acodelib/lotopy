@@ -1,5 +1,0 @@
-smtp_server=smtp.gmail.com
-sender_email_address=andrei.gurguta.system@gmail.com
-smtp_port=465
-pass=C@r1ckm!n3s
-send_email_to=andrei_gurguta@yahoo.com;cristina.gurguta@gmail.com
