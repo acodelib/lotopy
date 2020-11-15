@@ -6,7 +6,6 @@ class Configurations:
 
     def __init__(self, config_file_path="../CONFIGS/lotopy/config.txt"):
         with open(config_file_path, mode="r", encoding="utf-8") as config_file:
-            #comment
             self.__config_dict = dict(arg.rstrip("\n").split("=") for arg in config_file.readlines())
 
     def __getitem__(self, item):
