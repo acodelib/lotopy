@@ -12,3 +12,4 @@ data_engine.saveResults(result_loto, result_joker)
 mail = f"New games session:\n\n Loto 649 game: \n {str(result_loto)} \n\n Joker Game: \n {str(result_joker)}"
 
 emailer.sendEmailAndRecord(mail, "Loto game play")
+
