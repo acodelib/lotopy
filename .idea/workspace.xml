@@ -11,9 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d90a3e72-3a05-47eb-9874-eb85b8190d1c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/emails_outgoing.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/emails_outgoing.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/game_history.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/game_history.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Configurations.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Configurations.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
