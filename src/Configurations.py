@@ -2,7 +2,7 @@ import os
 
 
 class Configurations:
-    """Object holding configurations for the project. Encapsulates reading configs from a fil"""
+    """Object holding configurations for the project. Encapsulates reading configs from a file"""
 
     def __init__(self, config_file_path="../CONFIGS/lotopy/config.txt"):
         with open(config_file_path, mode="r", encoding="utf-8") as config_file:
