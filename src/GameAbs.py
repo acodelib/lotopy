@@ -1,5 +1,6 @@
-from abc import ABCMeta,abstractmethod,ABC
+from abc import ABCMeta, abstractmethod, ABC
 from random import randint
+
 
 class GameAbs(ABC):
     """ Abstract representation of a game session. Meant to be implemeted for each type of Loto Game"""
