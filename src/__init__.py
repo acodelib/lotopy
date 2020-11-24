@@ -1,6 +1,7 @@
 from src.GameJoker import GameJoker
 from src.Game649 import Game649
 from src.Result import Result
+from src.ResultSet import ResultSet
 from src.DataBridgeAbs import DataBridgeAbs
 from src.CsvDataBridge import CsvDataBridge
 from src.Configurations import Configurations
