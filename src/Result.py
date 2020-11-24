@@ -19,6 +19,21 @@ class Result():
         self.numbers.append(value)
         self.names.append(name)
 
+# -------------------------------------------------------------------------------------------------------------------
+    def getHtmlPrint(self):
+        printer = f"<p>Game Name: {self.game_name} , Play Time: {self.game_time}, Results:</p><br>\n"
+        printer = printer + '<table style="border-collapse: collapse;" >\n'
+
+        printer = printer + "<tr>\n"
+        for name in self.names:
+            printer = printer + f" <th>{name}</th>\n"
+        printer = printer + "</tr>\n<tr>\n"
+        for number in self.numbers:
+            printer = printer + f" <td>{number}</td>\n"
+        printer = printer + "</tr>\n"
+        printer = printer + "</table>\n<br>"
+
+        return printer
 # ---------------------------------------private --------------------------------------------------------------------
     def __str__(self):
         printer_string = f"Game Name: {self.game_name} , Play Time: {self.game_time}, Results:"
@@ -52,3 +67,4 @@ if __name__ == '__main__':
     rs.addNumber("N5", 17)
     rs.addNumber("N6", 1)
     print(rs)
+    print(rs.getHtmlPrint())

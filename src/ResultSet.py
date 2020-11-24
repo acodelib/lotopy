@@ -29,9 +29,28 @@ class ResultSet():
             raise TypeError(f"Warning, new result of type {result.game_name} is not of the same type as the others in the list")
 
 # --------------------------------------------------------------------------------------------------------------------
+    def getHtmlPrint(self):
+        printer = f"<p>Game Name: {self._game_name} , Play Time: {self._game_time}, Results:</p>\n"
+        printer = printer + '<table style="border-collapse: collapse;" border = 1;" >\n'
+
+        printer = printer + "<tr>\n"
+        for name in self._column_names:
+            printer = printer + f' <th style="padding:3px">{name}</th>\n'
+        printer = printer + "</tr>\n"
+        for result in self._results:
+            printer = printer + "<tr>\n"
+            printer = printer + f' <td style="padding:3px">{result.game_unit}</td>\n'
+            for number in result.numbers:
+                printer = printer + f" <td>{number}</td>\n"
+            printer = printer + "</tr>\n"
+        printer = printer + "</table>\n"
+        printer = printer +"<br<br>" if self.residual == 0 else printer + f"\n-------> NOTE residual value: {self.residual}<br><br>"
+
+        return printer
+# --------------------------------------------------------------------------------------------------------------------
     def __str__(self):
         printer_string = f"Game Name: {self._game_name} , Play Time: {self._game_time}, Results:"
-        describe_residual = f"\n-----------------------------> NOTE residual value: {self.residual}"
+        describe_residual = "" if self.residual == 0 else f"\n-----------------------------> NOTE residual value: {self.residual}"
         col_width = self._getMaxColumnWidth()
         lines = ""
         for row in self._print_elements:
@@ -76,3 +95,4 @@ if __name__ == '__main__':
     rss.addResult(rs)
     rss.residual = 49
     print(rss)
+    print(rss.getHtmlPrint())
