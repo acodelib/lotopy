@@ -1,59 +1,54 @@
 import pandas as pd
 import numpy as np
-from src import GameAbs
+from src import ResultAbs
 from datetime import datetime as dt
-from tabulate import tabulate
 
 
 class Result():
-    """ Encapsulation of 1 and only 1 game type result. Used to formalise result structure.
-        To be consumed by storage objects"""
+    """ POCO of a game result (numbers draw).
+        Responsability: formalises result structure."""
 
-    def __init__(self, the_game: GameAbs):
-        self.__the_game = the_game
-        self.__game_name = the_game.GAME_NAME
-        self.__game_columns = ['Game_Name', 'Timestamp', 'Unit', 'Name', 'Value']
-        self.__game_table = pd.DataFrame(columns=self.__game_columns)
-        self.__game_time = dt.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-4]
-        self.__residual = None
+    def __init__(self, game_name, game_unit):
+        self.game_name = game_name
+        self.game_unit = game_unit
+        self.game_time = dt.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-4]
+        self.numbers   = []
+        self.names     = []
 
-    @property
-    def game_table(self):
-        return self.__game_table
+    def addNumber(self, name, value):
+        self.numbers.append(value)
+        self.names.append(name)
 
-    @game_table.setter
-    def game_table(self):
-        raise PermissionError("Not intended for write access")
-
-    @property
-    def residual(self):
-        return self.__residual
-
-    @residual.setter
-    def residual(self, value):
-        self.__residual = value
-
-    def appendNumber(self, number, number_name, game_unit_name):
-        new_line = {'Game_Name': self.__game_name, 'Timestamp': self.__game_time,
-                    'Unit': game_unit_name, 'Name': number_name, 'Value': number
-                    }
-        self.__game_table = self.__game_table.append(new_line, ignore_index=True)
-
-    def getDataSet(self):
-        pass
-
+# ---------------------------------------private --------------------------------------------------------------------
     def __str__(self):
-        """Human readable output. Does that by pivoting the result table"""
+        printer_string = f"Game Name: {self.game_name} , Play Time: {self.game_time}, Results:"
 
-        printer_string = ""
-        names = self.__game_table["Name"].unique()
-        units = self.__game_table["Unit"].unique()
-        lines_list = []
-        for unit in units:
-            sr = self.__game_table.loc[self.__game_table["Unit"] == unit, "Value"]
-            lines_list.append(sr.tolist())
-        lines_df = pd.DataFrame(lines_list, columns=names)
-        printer_string = printer_string + lines_df.__str__()
-        printer_string = printer_string  + f"\n----------- Residual value: {self.residual}" if self.residual is not None else printer_string
+        col_width = self._getMaxColumnWidth()
+        line = ""
+        for row in self._print_elements:
+            row = "".join(str(value).ljust(col_width + 5) for value in row)
+            line = line + "\n" + row
+        return printer_string + line
 
-        return printer_string
+    def _getMaxColumnWidth(self):
+        cell_lengths = []
+        for values_list in self._print_elements:
+            for element in values_list:
+                if type(element) == str:
+                    cell_lengths.append(len(element))
+        return max(cell_lengths)
+
+    @property
+    def _print_elements(self):
+        return [self.names, self.numbers]
+
+
+if __name__ == '__main__':
+    rs = Result("Loto649", "Line-1")
+    rs.addNumber("N1", 19)
+    rs.addNumber("N2", 44)
+    rs.addNumber("N3", 32)
+    rs.addNumber("N4", 16)
+    rs.addNumber("N5", 17)
+    rs.addNumber("N6", 1)
+    print(rs)
