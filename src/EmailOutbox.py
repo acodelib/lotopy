@@ -17,11 +17,14 @@ class EmailOutbox():
         self._pass = conf["pass"]
         self._databridge = databridge
 
-    def sendEmailAndRecord(self, message_text, subject, message_format=EMAIL_HTML):
+    def sendEmailAndRecord(self, message_content, subject, message_format=EMAIL_HTML):
+        """1 or EMAIL_HTML when passing message_content as HTML
+           2 or EMAIL_TXT when passing message_content as plain text"""
+
         if message_format == EmailOutbox.EMAIL_HTML:
-            message = self._buildHtmlMessage(message_text, subject)
+            message = self._buildHtmlMessage(message_content, subject)
         elif message_format == EmailOutbox.EMAIL_TXT:
-            message = self._buildTextMessage(message_text,subject)
+            message = self._buildTextMessage(message_content, subject)
 
         secure_context = ssl.create_default_context()
         with smtplib.SMTP_SSL(self._smtp_server, self._smtp_port, context=secure_context) as email_server:
@@ -43,10 +46,10 @@ class EmailOutbox():
             </body>
         </html>
         """
-        html_format = header + "\n" + message_text + "\n" + footer
+        full_html_msg = header + "\n" + message_text + "\n" + footer
         message = MIMEMultipart('alternative')
         message["Subject"] = subject
-        message_content = MIMEText(html_format, 'html')
+        message_content = MIMEText(full_html_msg, 'html')
         message.attach(message_content)
 
         return message
@@ -55,9 +58,4 @@ class EmailOutbox():
         new_email_id = self._databridge.getNewEmailId()
         email_id_part = f"\n\n\n\n\n#sys[EmailId:{new_email_id}]"
 
-        message = MIMEMultipart('alternative')
-        message["Subject"] = subject
-        message_content = MIMEText(message_text, 'html')
-        message.attach(message_content)
-
-        return message
+        return f"Subject: {subject}\n\n{message_text}{email_id_part}"
