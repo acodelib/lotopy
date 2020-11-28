@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod, ABC
-from src import Result
+from src import Result, ResultSet
 
 
 def abstracmethod():
@@ -12,15 +12,19 @@ class DataBridgeAbs(ABC):
         pass
 
     @abstractmethod
-    def saveResultUnit(self, result: Result):
+    def saveResult(self, result: Result):
         pass
 
     @abstractmethod
-    def saveResults(self, *args):
+    def saveResultSet(self, result_set: ResultSet):
         pass
 
     @abstractmethod
     def fetchAllHistory(self, ) -> Result:
+        pass
+
+    @abstractmethod
+    def getNewEmailId(self):
         pass
 
     @abstractmethod
@@ -31,6 +35,3 @@ class DataBridgeAbs(ABC):
     def getNewGameId(self):
         pass
 
-    @abstractmethod
-    def getNewEmailId(self):
-        pass
