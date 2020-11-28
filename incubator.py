@@ -1,9 +1,6 @@
-from src import Configurations, EmailOutbox, CsvDataBridge, Game649, GameJoker
+from src import Configurations, EmailOutbox, DataBridgeCSV, Game649, GameJoker, DataConnectorCSV
 
-c = Configurations()
 
-csv_db = CsvDataBridge()
+db = DataBridgeCSV()
 
-v = csv_db.getNewEmailId()
-
-print(v)
+print(db.getNewGameId())
