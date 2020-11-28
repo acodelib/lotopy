@@ -46,7 +46,7 @@ class GameJoker(GameAbs):
 
         return new_result
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
-    def playMaxNaturalSize(self) -> ResultSet:
+    def playMaxGameUnits(self) -> ResultSet:
         """Plays full 9 lines with 9 jokers"""
 
         self.drawNumbers(GameJoker.MAX_PER_UNIT)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     joker = GameJoker()
     r = joker.playSingleGameUnit()
     print(r)
-    rs = joker.playMaxNaturalSize()
+    rs = joker.playMaxGameUnits()
     print(rs)
 
 

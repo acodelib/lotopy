@@ -19,7 +19,7 @@ class GameAbs(ABC):
         pass
 
     @abstractmethod
-    def playMaxNaturalSize(self):
+    def playMaxGameUnits(self):
         pass
 
     @abstractmethod

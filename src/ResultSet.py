@@ -4,40 +4,40 @@ class ResultSet():
     """Holds multiple results"""
 
     def __init__(self):
-        self._results = []
-        self._game_name = ""
-        self._game_time = ""
+        self.results = []
+        self.game_name = ""
+        self.game_time = ""
         self._column_names = ['Unit Name']
         self.residual = 0
 
     def addResult(self, result: Result):
         self._setResultSetType(result)
         self._makeSureOnlyOneTypeOfGame(result)
-        self._results.append(result)
+        self.results.append(result)
 
 # --------------------------------------------------------------------------------------------------------------------
     def _setResultSetType(self, result: Result):
         """ This would set a Game type for all results. If trying to insert a different
             Game than the first then it will yield an exception """
-        if len(self._results) == 0:
-            self._game_name = result.game_name
-            self._game_time = result.game_time
+        if len(self.results) == 0:
+            self.game_name = result.game_name
+            self.game_time = result.game_time
             self._column_names.extend(result.names)
 
     def _makeSureOnlyOneTypeOfGame(self, result: Result):
-        if result.game_name != self._game_name:
+        if result.game_name != self.game_name:
             raise TypeError(f"Warning, new result of type {result.game_name} is not of the same type as the others in the list")
 
 # --------------------------------------------------------------------------------------------------------------------
     def getHtmlPrint(self):
-        printer = f"<p>Game Name: {self._game_name} , Play Time: {self._game_time}, Results:</p>\n"
+        printer = f"<p>Game Name: {self.game_name} , Play Time: {self.game_time}, Results:</p>\n"
         printer = printer + '<table style="border-collapse: collapse;" border = 1;" >\n'
 
         printer = printer + "<tr>\n"
         for name in self._column_names:
             printer = printer + f' <th style="padding:3px">{name}</th>\n'
         printer = printer + "</tr>\n"
-        for result in self._results:
+        for result in self.results:
             printer = printer + "<tr>\n"
             printer = printer + f' <td style="padding:3px">{result.game_unit}</td>\n'
             for number in result.numbers:
@@ -49,7 +49,7 @@ class ResultSet():
         return printer
 # --------------------------------------------------------------------------------------------------------------------
     def __str__(self):
-        printer_string = f"Game Name: {self._game_name} , Play Time: {self._game_time}, Results:"
+        printer_string = f"Game Name: {self.game_name} , Play Time: {self.game_time}, Results:"
         describe_residual = "" if self.residual == 0 else f"\n-----------------------------> NOTE residual value: {self.residual}"
         col_width = self._getMaxColumnWidth()
         lines = ""
@@ -69,7 +69,7 @@ class ResultSet():
     @property
     def _print_elements(self):
         elements = [self._column_names]
-        for r in self._results:
+        for r in self.results:
             with_unit_name = [r.game_unit]
             with_unit_name.extend(r.numbers)
             elements.append(with_unit_name)

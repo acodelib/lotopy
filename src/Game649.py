@@ -38,8 +38,8 @@ class Game649(GameAbs):
         return new_result
 
     # ----------------------------------------------------------------------------------------------------------------------------------------------------
-    def playMaxNaturalSize(self) -> ResultSet:
-        """Plays full 8 lines. This is 48 numbers. Number 49 will be regarded as rezidual"""
+    def playMaxGameUnits(self) -> ResultSet:
+        """Plays full 8 lines. This is 48 numbers. Number 49 will be regarded as residual"""
 
         self.drawNumbers(Game649.MAX_PER_UNIT)
         start_of_unit = 0
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     loto649 = Game649()
     r = loto649.playSingleGameUnit()
     print(r)
-    rs = loto649.playMaxNaturalSize()
+    rs = loto649.playMaxGameUnits()
 
     print(rs)
     print(timeit.default_timer() - start_tm)
