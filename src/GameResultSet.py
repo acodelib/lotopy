@@ -1,4 +1,4 @@
-from src.Result import Result
+from src.Result import GameResult
 
 class ResultSet():
     """Holds multiple results"""
@@ -10,13 +10,13 @@ class ResultSet():
         self._column_names = ['Unit Name']
         self.residual = 0
 
-    def addResult(self, result: Result):
+    def addResult(self, result: GameResult):
         self._setResultSetType(result)
         self._makeSureOnlyOneTypeOfGame(result)
         self.results.append(result)
 
 # --------------------------------------------------------------------------------------------------------------------
-    def _setResultSetType(self, result: Result):
+    def _setResultSetType(self, result: GameResult):
         """ This would set a Game type for all results. If trying to insert a different
             Game than the first then it will yield an exception """
         if len(self.results) == 0:
@@ -24,7 +24,7 @@ class ResultSet():
             self.game_time = result.game_time
             self._column_names.extend(result.names)
 
-    def _makeSureOnlyOneTypeOfGame(self, result: Result):
+    def _makeSureOnlyOneTypeOfGame(self, result: GameResult):
         if result.game_name != self.game_name:
             raise TypeError(f"Warning, new result of type {result.game_name} is not of the same type as the others in the list")
 
@@ -77,7 +77,7 @@ class ResultSet():
 
 if __name__ == '__main__':
     rss = ResultSet()
-    rs = Result("Loto649", "Line-1")
+    rs = GameResult("Loto649", "Line-1")
     rs.addNumber("N1", 19)
     rs.addNumber("N2", 44)
     rs.addNumber("N3", 32)
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     rs.addNumber("N5", 17)
     rs.addNumber("N6", 1)
     rss.addResult(rs)
-    rs = Result("Loto649", "Line-2")
+    rs = GameResult("Loto649", "Line-2")
     rs.addNumber("N1", 22)
     rs.addNumber("N2", 1)
     rs.addNumber("N3", 43)
