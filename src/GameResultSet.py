@@ -1,6 +1,6 @@
-from src.Result import GameResult
+from src.GameResult import GameResult
 
-class ResultSet():
+class GameResultSet():
     """Holds multiple results"""
 
     def __init__(self):
@@ -76,7 +76,7 @@ class ResultSet():
         return elements
 
 if __name__ == '__main__':
-    rss = ResultSet()
+    rss = GameResultSet()
     rs = GameResult("Loto649", "Line-1")
     rs.addNumber("N1", 19)
     rs.addNumber("N2", 44)

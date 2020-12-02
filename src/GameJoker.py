@@ -1,6 +1,6 @@
 from src.GameAbs import GameAbs
-from src.Result import Result
-from src.ResultSet import ResultSet
+from src.GameResult import GameResult
+from src.GameResultSet import GameResultSet
 from random import randint
 import math
 import timeit
@@ -34,10 +34,10 @@ class GameJoker(GameAbs):
                 j = randint(1, 20)
             self._session_jokers.append(j)
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
-    def playSingleGameUnit(self) -> Result:
+    def playSingleGameUnit(self) -> GameResult:
         """Plays 1 line with 1 joker"""
 
-        new_result = Result(GameJoker.GAME_NAME, "Line-1")
+        new_result = GameResult(GameJoker.GAME_NAME, "Line-1")
         self.drawNumbers(GameJoker.MIN_PER_UNIT)
         self._session_numbers.sort()
         for i, n in enumerate(self._session_numbers):
@@ -46,14 +46,14 @@ class GameJoker(GameAbs):
 
         return new_result
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
-    def playMaxGameUnits(self) -> ResultSet:
+    def playMaxGameUnits(self) -> GameResultSet:
         """Plays full 9 lines with 9 jokers"""
 
         self.drawNumbers(GameJoker.MAX_PER_UNIT)
         start_of_unit  = 0
         end_of_unit    = GameJoker.MIN_PER_UNIT
         joker_count    = 0
-        new_result_set = ResultSet()
+        new_result_set = GameResultSet()
 
         while start_of_unit < len(self._session_numbers) - 1:
             line_no = int(start_of_unit / GameJoker.MIN_PER_UNIT + 1)
@@ -61,7 +61,7 @@ class GameJoker(GameAbs):
             unit.sort()
             self._session_units.append(unit)
             game_unit = f"Line-{line_no}"
-            new_result = Result(GameJoker.GAME_NAME, game_unit)
+            new_result = GameResult(GameJoker.GAME_NAME, game_unit)
             for position, number in enumerate(unit):
                 new_result.addNumber(f"N-{position + 1}", number)
             new_result.addNumber(f"J", self._session_jokers[joker_count])

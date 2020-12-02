@@ -1,4 +1,4 @@
-from src import Game649, Result, GameJoker, DataBridgeCSV, Configurations, EmailOutbox
+from src import Game649, GameResult, GameJoker, DataBridgeCSV, Configurations, EmailOutbox
 import timeit as tm
 
 data_engine = DataBridgeCSV ()

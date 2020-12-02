@@ -1,6 +1,6 @@
 from src.GameAbs import GameAbs
-from src.Result import Result
-from src.ResultSet import ResultSet
+from src.GameResult import GameResult
+from src.GameResultSet import GameResultSet
 from random import randint
 import timeit
 
@@ -27,10 +27,10 @@ class Game649(GameAbs):
             self._session_numbers.append(n)
 
     # ----------------------------------------------------------------------------------------------------------------------------------------------------
-    def playSingleGameUnit(self) -> Result:
+    def playSingleGameUnit(self) -> GameResult:
         """One line of 6 out of 49"""
 
-        new_result = Result(Game649.GAME_NAME, "Line-1")
+        new_result = GameResult(Game649.GAME_NAME, "Line-1")
         self.drawNumbers(Game649.MIN_PER_UNIT)
         self._session_numbers.sort()
         for i, n in enumerate(self._session_numbers):
@@ -38,20 +38,20 @@ class Game649(GameAbs):
         return new_result
 
     # ----------------------------------------------------------------------------------------------------------------------------------------------------
-    def playMaxGameUnits(self) -> ResultSet:
+    def playMaxGameUnits(self) -> GameResultSet:
         """Plays full 8 lines. This is 48 numbers. Number 49 will be regarded as residual"""
 
         self.drawNumbers(Game649.MAX_PER_UNIT)
         start_of_unit = 0
         end_of_unit = Game649.MIN_PER_UNIT
-        new_result_set = ResultSet()
+        new_result_set = GameResultSet()
 
         while start_of_unit < len(self._session_numbers) - 1:
             unit = self._session_numbers[start_of_unit:end_of_unit]
             unit.sort()
             self._session_units.append(unit)
             game_unit = f"Line-{int(start_of_unit / Game649.MIN_PER_UNIT + 1)}"
-            new_result = Result(Game649.GAME_NAME, game_unit)
+            new_result = GameResult(Game649.GAME_NAME, game_unit)
             for position, number in enumerate(unit):
                 new_result.addNumber(f"N-{position + 1}", number)
             start_of_unit = end_of_unit

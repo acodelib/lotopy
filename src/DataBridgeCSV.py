@@ -1,4 +1,4 @@
-from src import Result, DataBridgeAbs, ResultSet, DataConnectorCSV
+from src import GameResult, DataBridgeAbs, GameResultSet, DataConnectorCSV
 import pandas as pd
 from datetime import datetime as dt
 import timeit as tm
@@ -15,7 +15,7 @@ class DataBridgeCSV(DataBridgeAbs):
         self._games_handle       = None
         self._game_result_handle = None
 # ---------------------------------------------------------------------------------------------------------------------
-    def saveResult(self, result: Result):
+    def saveResult(self, result: GameResult):
         """Appends Result data to CSV _games_file and _game_results_file"""
 
         game_id = self.getNewGameId()
@@ -31,7 +31,7 @@ class DataBridgeCSV(DataBridgeAbs):
         if close_the_handle_flag:
             self._connector.closeAllOpenHandles()
 
-    def saveResultSet(self, result_set: ResultSet):
+    def saveResultSet(self, result_set: GameResultSet):
         self._games_handle = self._connector.getAppendDataHandle(DataConnectorCSV.GAMES)
         self._game_result_handle = self._connector.getAppendDataHandle(DataConnectorCSV.GAME_RESULTS)
         for result in result_set.results:
@@ -45,7 +45,7 @@ class DataBridgeCSV(DataBridgeAbs):
             self._game_id = self._extractMaxIdDirectlyFromConnector()
         return self._game_id
 
-    def _writeGameHeaderInfo(self, result: Result, id):
+    def _writeGameHeaderInfo(self, result: GameResult, id):
         game_id = id
         game_name = result.game_name
         unit = result.game_unit
@@ -53,7 +53,7 @@ class DataBridgeCSV(DataBridgeAbs):
         writer = csv.writer(self._games_handle, delimiter=",", quoting=csv.QUOTE_MINIMAL)
         writer.writerow([game_id, game_name, timestamp, unit])
 
-    def _writeGameValueDetails(self, result: Result, id):
+    def _writeGameValueDetails(self, result: GameResult, id):
         game_id = id
         writer = csv.writer(self._game_result_handle, delimiter=",", quoting=csv.QUOTE_MINIMAL)
         for name, number in zip(result.names, result.numbers):

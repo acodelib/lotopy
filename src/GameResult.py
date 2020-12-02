@@ -4,7 +4,7 @@ from src import ResultAbs
 from datetime import datetime as dt
 
 
-class Result():
+class GameResult():
     """ POCO of a game result (numbers draw).
         Responsability: formalises result structure."""
 
@@ -59,7 +59,7 @@ class Result():
 
 
 if __name__ == '__main__':
-    rs = Result("Loto649", "Line-1")
+    rs = GameResult("Loto649", "Line-1")
     rs.addNumber("N1", 19)
     rs.addNumber("N2", 44)
     rs.addNumber("N3", 32)
